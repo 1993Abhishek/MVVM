@@ -26,7 +26,6 @@ class CustomTextfieldWidget extends StatefulWidget {
   final bool obscureText;
   final List<TextInputFormatter> inputFormatter;
   final TextStyle textStyle;
-  final TextStyle labelTextStyle;
   final double gapBetween;
   final EdgeInsetsGeometry contentPadding;
   final Function onChange;
@@ -35,10 +34,11 @@ class CustomTextfieldWidget extends StatefulWidget {
   final TextAlign textAlign;
   final TextAlignVertical textAlignVertical;
   final Widget prefixWidget;
-  final String lebelText;
+  final IconData iconData;
+
 
   CustomTextfieldWidget({
-    @required this.lebelText,
+    this.iconData,
     this.prefixWidget,
     this.textAlignVertical,
     this.textAlign,
@@ -61,7 +61,6 @@ class CustomTextfieldWidget extends StatefulWidget {
     this.obscureText = false,
     this.inputFormatter,
     this.textStyle,
-    this.labelTextStyle,
     this.gapBetween,
     this.minLines,
     this.contentPadding,
@@ -87,7 +86,7 @@ class _CustomTextfieldWidgetState extends State<CustomTextfieldWidget> {
   );
   final TextStyle hintTextStyle = TextStyle(
     fontFamily: "Roboto",
-    color: Colors.white70,
+    color: Colors.black87,
     fontSize: hDimen(15),
   );
   final OutlineInputBorder normalBorder = OutlineInputBorder(
@@ -114,83 +113,83 @@ class _CustomTextfieldWidgetState extends State<CustomTextfieldWidget> {
     ),
   );
 
+  Widget roundedButton() {
+    return Container(
+      height: hDimen(50),
+      width: hDimen(50),
+      decoration: BoxDecoration(
+        color: Colors.transparent, shape: BoxShape.circle,),
+      child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(hDimen(50))
+        ),
+        elevation: 2,
+        child: Center(
+          child: Icon(widget.iconData,size: hDimen(20),color: Colors.black54,),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        Text(
-          widget.lebelText,
-          style: TextStyle(
-            color: Colors.black54,
-            fontSize: hDimen(18),
-            fontWeight: FontWeight.bold,
-          ),
+    return Card(
+      elevation: 2,
+      color: Colors.white,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(
+          hDimen(20),
         ),
-        AppSpacing.verticalSpace(hDimen(5)),
-        Card(
-          // elevation: widget.elevation,
-          color: Colors.white,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(
-              hDimen(5),
-            ),
-            side: BorderSide(
-              color: AppColor.colorTextFieldBorder,
-              width: 1,
-            ),
-          ),
-          child: TextFormField(
-            textAlignVertical: widget.textAlignVertical,
-            expands: widget.expands,
-            scrollPhysics: BouncingScrollPhysics(),
-            scrollPadding: EdgeInsets.all(0),
-            readOnly: widget.readOnly,
-            maxLines: widget.maxLines,
-            enableSuggestions: false,
-            focusNode: widget.focusNode,
-            controller: widget.controller,
-            inputFormatters: widget.inputFormatter,
-            onTap: () {
-              if (widget.onTap != null) widget.onTap();
-            },
-            onFieldSubmitted: (value) {
-              if (widget.onSubmitted != null) {
-                widget.onSubmitted(value);
-              }
-            },
-            obscureText: widget.obscureText,
-            maxLength: widget.maxLength,
-            cursorColor: Colors.black,
-            minLines: widget.minLines,
-            keyboardType: widget.inputType,
-            textInputAction: widget.textInputAction,
-            textCapitalization: widget.textCapitalization,
-            textAlign:
-                widget.textAlign == null ? TextAlign.start : widget.textAlign,
-            onChanged: (value) {
-              if (widget.onChange != null) widget.onChange(value);
-            },
-            decoration: InputDecoration(
-              prefixIcon: widget.prefixWidget,
-              contentPadding: widget.contentPadding != null
-                  ? widget.contentPadding
-                  : EdgeInsets.only(
-                      left: hDimen(20),
-                      right: hDimen(widget.suffixIcon != null ? 0 : 20),
-                    ),
-              counterText: '',
-              hintText: widget.hintText,
-              hintStyle: hintTextStyle,
-              enabledBorder: transparentBorder,
-              focusedBorder: selectedBorder,
-              border: transparentBorder,
-            ),
-            style: widget.textStyle != null ? widget.textStyle : textStyle,
-          ),
+      ),
+      child: TextFormField(
+        textAlignVertical: widget.textAlignVertical,
+        expands: widget.expands,
+        scrollPhysics: BouncingScrollPhysics(),
+        scrollPadding: EdgeInsets.all(0),
+        readOnly: widget.readOnly,
+        maxLines: widget.maxLines,
+        enableSuggestions: false,
+        focusNode: widget.focusNode,
+        controller: widget.controller,
+        inputFormatters: widget.inputFormatter,
+        onTap: () {
+          if (widget.onTap != null) widget.onTap();
+        },
+        onFieldSubmitted: (value) {
+          if (widget.onSubmitted != null) {
+            widget.onSubmitted(value);
+          }
+        },
+        obscureText: widget.obscureText,
+        maxLength: widget.maxLength,
+        cursorColor: Colors.black,
+        minLines: widget.minLines,
+        keyboardType: widget.inputType,
+        textInputAction: widget.textInputAction,
+        textCapitalization: widget.textCapitalization,
+        textAlign:
+            widget.textAlign == null ? TextAlign.start : widget.textAlign,
+        onChanged: (value) {
+          if (widget.onChange != null) widget.onChange(value);
+        },
+        decoration: InputDecoration(
+          suffixIcon: roundedButton(),
+          prefixIcon: widget.prefixWidget,
+          contentPadding: widget.contentPadding != null
+              ? widget.contentPadding
+              : EdgeInsets.only(
+                  left: hDimen(20),
+                  right: hDimen(widget.suffixIcon != null ? 0 : 20),
+                ),
+          counterText: '',
+          hintText: widget.hintText,
+          hintStyle: hintTextStyle,
+          enabledBorder: transparentBorder,
+          focusedBorder: selectedBorder,
+          border: transparentBorder,
         ),
-      ],
+        style: widget.textStyle != null ? widget.textStyle : textStyle,
+      ),
     );
   }
 }

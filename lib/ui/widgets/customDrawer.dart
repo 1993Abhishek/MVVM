@@ -32,6 +32,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: hDimen(200),
       color: Colors.deepOrangeAccent,
       child: SingleChildScrollView(
         physics: BouncingScrollPhysics(),
