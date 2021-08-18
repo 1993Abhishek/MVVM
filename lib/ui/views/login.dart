@@ -119,7 +119,7 @@ class _LogInScreenState extends State<LogInScreen> {
             ),
             vSpacing(hDimen(20)),
             CustomButton(buttonText: "LOGIN NOW", onClick: () {
-              Navigator.of(context).pushReplacementNamed(MVVMRouter.ROUTE_HOME);
+              Navigator.of(context).pushReplacementNamed(MVVMRouter.ROUTE_DASHBOARD);
             }),
             vSpacing(hDimen(20)),
             Row(
